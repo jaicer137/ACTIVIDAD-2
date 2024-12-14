@@ -1,0 +1,30 @@
+# Instalar las librerías necesarias para trabajar con grafos y visualización
+!pip install networkx matplotlib
+
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# ... (rest of your code) ...
+
+# Visualización del grafo con un formato en rombo y colores específicos
+pos = nx.spring_layout(G, seed=42)  # Layout para la disposición de los nodos
+
+# Dibuja el grafo
+plt.figure(figsize=(8, 6))
+
+# Dibujar nodos en forma de rombo (cambio aquí)
+# nx.draw_networkx_nodes(G, pos, node_size=700, node_color='red', shape='D')  # Removed 'shape' argument
+nx.draw_networkx_nodes(G, pos, node_size=700, node_color='red', node_shape='D') # Use 'node_shape' instead of 'shape'
+
+
+# Dibujar las aristas con colores
+nx.draw_networkx_edges(G, pos, width=2, alpha=0.7, edge_color='blue')
+
+# Etiquetas para los nodos y las aristas
+nx.draw_networkx_labels(G, pos, font_size=15, font_color='white')
+nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): f'{d["weight"]}' for u, v, d in G.edges(data=True)})
+
+# Mostrar el gráfico
+plt.title("Sistema de Transporte Masivo: Mejor Ruta de A a B")
+plt.axis("off")  # Quitar los ejes
+plt.show()
